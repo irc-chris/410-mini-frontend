@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import styles from "../app/page.module.css";
-import { hello } from "../DataManagers/GameListManager";
+import { logstubGames } from "../DataManagers/GameListManager";
 
 export function HomePage() {
     return ( // Add 'return' here
@@ -21,7 +21,7 @@ export function HomePage() {
             </li>
             <li>Save and see your changes instantly.</li>
           </ol>
-          <button onClick={hello}> stub games </button>
+          <button onClick={logstubGames}> stub games </button>
           <div className={styles.ctas}>
             <a
               className={styles.primary}
