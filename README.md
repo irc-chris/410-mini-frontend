@@ -8,8 +8,10 @@ Tarushi_M   - Tarushi Mittal
             - Angel Romero
 Jingwu-01   - Jingwu Wang
 
-The file to edit the Home page is within Components. This produces a component
-that page.tsx imports and then displays as a React Component.
+The file to edit the main displayed page is within Components. This produces a component that page.tsx imports and then displays as a React Component.
+
+Component files are in Components
+Manager files (those that will end up interacting with the backend) are in DataManagers.
 
 To work on the project please:
 1. Make a branch for ur component
