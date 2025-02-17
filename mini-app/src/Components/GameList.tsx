@@ -25,8 +25,6 @@ export default function GameList({ user }: GameListProps) {
     // State to keep track of the sorting preference (default, deadline, score)
     const [sortBy, setSortBy] = useState<"default" | "deadline" | "score">("default");
  
-    const gameListManager = GameListManager();
- 
     /**
      * useEffect hook runs when the component mounts or when the sorting method
      * or user name changes. It fetches the list of games based on the selected
@@ -36,13 +34,13 @@ export default function GameList({ user }: GameListProps) {
         let fetchedGames: GameInfo[] = [];
         // Based on the sorting preference, fetch the games using GameListManager
         if (sortBy === "deadline") {
-            fetchedGames = gameListManager.getGamesSortedByDeadline(user.name);
+            fetchedGames = GameListManager.getGamesSortedByDeadline(user.name);
         }
         else if (sortBy === "score") {
-            fetchedGames = gameListManager.getGameSortedByScore(user.name);
+            fetchedGames = GameListManager.getGameSortedByScore(user.name);
         }
         else {
-            fetchedGames = gameListManager.getGames(user.name);
+            fetchedGames = GameListManager.getGames(user.name);
         }
         setGames(fetchedGames);
     }, [user.name, sortBy]); // Re-run effect when user name or sortBy changes

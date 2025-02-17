@@ -47,7 +47,7 @@ export function HomePage() {
             </button>
             {showLeaderboard && <Leaderboard />}
             {/* TODO: Change GameList implementation to the implementation Tarushi will implement */}
-            <GameList onGameEntry={onGameEntry} user={SAMPLE_USER}/>
+            <GameList user={SAMPLE_USER}/>
         </div>
     )
 }
