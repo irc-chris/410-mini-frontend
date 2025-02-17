@@ -18,6 +18,7 @@ export function HomePage() {
     const [inGame, setInGame] = useState(false);
     const [gameUI, setGameUI] = useState(<></>);
     const [showLeaderboard, setShowLeaderboard] = useState(false);
+    const [sortBy, setSortBy] = useState<"default" | "deadline" | "score">("default");  // State to handle sorting
 
     /**
      * Changes the displayed component to the main menu instead of the game.
@@ -36,6 +37,14 @@ export function HomePage() {
         setInGame(true);
     }
 
+    /**
+     * Handles the change of sorting option.
+     * @param event - The event triggered when the sorting option is changed.
+     */
+    const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSortBy(event.target.value as "default" | "deadline" | "score");
+    };
+
     if (inGame) {
         return gameUI;
     } else return (
@@ -46,8 +55,22 @@ export function HomePage() {
                 {showLeaderboard ? "Hide Leaderboard" : "Show Leaderboard"}
             </button>
             {showLeaderboard && <Leaderboard />}
-            {/* TODO: Change GameList implementation to the implementation Tarushi will implement */}
-            <GameList user={SAMPLE_USER}/>
+            {/* Sorting options dropdown */}
+            <div>
+                <label htmlFor="sort-dropdown">Sort By: </label>
+                <select
+                    id="sort-dropdown"
+                    value={sortBy}
+                    onChange={handleSortChange}
+                >
+                    <option value="default">Default</option>
+                    <option value="deadline">Deadline</option>
+                    <option value="score">Score</option>
+                </select>
+            </div>
+
+            {/* Pass the selected sortBy to the GameList component */}
+            <GameList user={SAMPLE_USER} sortBy={sortBy} />
         </div>
     )
 }
