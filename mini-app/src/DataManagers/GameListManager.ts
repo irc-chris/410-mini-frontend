@@ -37,6 +37,7 @@ function GameListManager() {
         gamesByUser.sort((a, b) => userInfo.scores[a.Name] - userInfo.scores[b.Name]);
         return gamesByUser;
     }
+    return { getGames, getGamesSortedByDeadline, getGameSortedByScore};
 }
 
 export default GameListManager;

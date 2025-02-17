@@ -7,6 +7,7 @@ function GameDataManager() {
         let game: GameInfo = StubDB.Games.find((game) => game.Id === gameID)!;
         return {user, game}; 
     }
+    return { getGameInfo };
 }
 
 export default GameDataManager;
