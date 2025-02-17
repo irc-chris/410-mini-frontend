@@ -44,6 +44,14 @@ const user2: User = {
     inventory: { 'Forest': ["water", "knife"], }
 };
 
+const user3: User = {
+    name: "user-3",
+    id: "id3",
+    assignments: ["Oedk", "Forest"],
+    scores: { 'Forest': 10, 'Oedk': 25, 'Rice':5 },
+    inventory: { 'Forest': ["water", "knife"], }
+};
+
 // Database Class
 export class GameBackend {
     private users: User[]; // Users Database
@@ -65,4 +73,4 @@ export class GameBackend {
     }
 }
 
-export const StubDB = new GameBackend([user1, user2], [game1, game2, game3])
+export const StubDB = new GameBackend([user1, user2, user3], [game1, game2, game3])
