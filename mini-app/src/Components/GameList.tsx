@@ -2,7 +2,7 @@ import React, {useEffect, useState } from "react";
 import Game from "./Game";
 import GameListManager from "../DataManagers/GameListManager";
 import { GameInfo, User } from "../Types";
-
+ 
 /**
  * GameListProps defines the expected props for the GameList component.
  * It contains a single 'user' object which will be used to fetch the list of games
@@ -11,10 +11,10 @@ import { GameInfo, User } from "../Types";
 interface GameListProps {
     user: User;
 }
-
+ 
 /**
  * The GameList component displays a list of games assigned to the specified user.
- * The games are fetched and optionally sorted based on user preferences for sorting 
+ * The games are fetched and optionally sorted based on user preferences for sorting
  * (by "default", "deadline", or "score"). Each game is displayed using the Game component.
  * @param {GameListProps} props - The props for the GameList component.
  * @returns {JSX.Element} - The rendered GameList component.
@@ -24,9 +24,9 @@ export default function GameList({ user }: GameListProps) {
     const [games, setGames] = useState<GameInfo[]>([]);
     // State to keep track of the sorting preference (default, deadline, score)
     const [sortBy, setSortBy] = useState<"default" | "deadline" | "score">("default");
-
+ 
     const gameListManager = GameListManager();
-
+ 
     /**
      * useEffect hook runs when the component mounts or when the sorting method
      * or user name changes. It fetches the list of games based on the selected
@@ -46,7 +46,7 @@ export default function GameList({ user }: GameListProps) {
         }
         setGames(fetchedGames);
     }, [user.name, sortBy]); // Re-run effect when user name or sortBy changes
-
+ 
     /**
      * Render the GameList component. This includes:
      * 1. A dropdown to select the sorting criteria (default, deadline, score)
@@ -64,7 +64,7 @@ export default function GameList({ user }: GameListProps) {
                 <option value="deadline">Deadline</option>
                 <option value="score">Score</option>
             </select>
-
+ 
             <ul>
                 {games.map((game) => (
                     <li key={game.Id}>

@@ -1,9 +1,9 @@
 import { StubDB } from "../StubData";
 import { GameInfo, User } from "../Types";
 
-function GameListManager() {
+class GameListManager {
   
-    function getGames(username: string): GameInfo[] {
+    static getGames(username: string): GameInfo[] {
         if (!StubDB.Users.find(user => user.name === username)) {
             throw new Error("User not found");
         }
@@ -14,7 +14,7 @@ function GameListManager() {
         return gamesByUser;
     }
     
-    function getGamesSortedByDeadline(username: string): GameInfo[] {
+    static getGamesSortedByDeadline(username: string): GameInfo[] {
         if (!StubDB.Users.find(user => user.name === username)) {
             throw new Error("User not found");
         }
@@ -26,7 +26,7 @@ function GameListManager() {
         return gamesByUser;
     }
 
-    function getGameSortedByScore(username: string): GameInfo[] {
+    static getGameSortedByScore(username: string): GameInfo[] {
         if (!StubDB.Users.find(user => user.name === username)) {
             throw new Error("User not found");
         }
