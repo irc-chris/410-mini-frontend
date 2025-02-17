@@ -1,10 +1,10 @@
 import React from "react";
 import "./GameInterfacePage.css";
 
-// will replace with correctly routing to the home page, i am just unsure on how we are doing this
-const onQuit = () => {
-  console.log("quit");
-};
+// // will replace with correctly routing to the home page, i am just unsure on how we are doing this
+// const onQuit = () => {
+//   console.log("quit");
+// };
 
 // will replace with functionality
 const onSend = () => {
@@ -15,10 +15,12 @@ function GameInterface({
   title,
   instructions,
   inventory,
+  onQuit
 }: {
   title: string;
   instructions: string;
   inventory: Record<string, string[]>;
+  onQuit: () => void
 }) {
   return (
     <div className="container">
