@@ -1,60 +1,77 @@
-import React, { useState } from "react";
-import { GameInfo, User } from "../Types";
+import React, {useEffect, useState } from "react";
+import Game from "./Game";
 import GameListManager from "../DataManagers/GameListManager";
-
-interface GameListProps {
-    user: User,
-    onGameEntry: (game: GameInfo) => void
-}
-
+import { GameInfo, User } from "../Types";
+ 
 /**
- * jaj10: A temporary implementation of GameList used by the HomePage component
- * before this component is finished by Tarushi (this is who is assigned this component)
- *
- * The styling here is horrible these are just buttons. This version of the component handles
- * sorting so that the main page doesn't sort.
- * @param param0 
- * @returns 
+ * GameListProps defines the expected props for the GameList component.
+ * It contains a single 'user' object which will be used to fetch the list of games
+ * assigned to the user, and display them.
  */
-function GameList({onGameEntry: onClick, user}: GameListProps) {
+interface GameListProps {
+    user: User;
+}
+ 
+/**
+ * The GameList component displays a list of games assigned to the specified user.
+ * The games are fetched and optionally sorted based on user preferences for sorting
+ * (by "default", "deadline", or "score"). Each game is displayed using the Game component.
+ * @param {GameListProps} props - The props for the GameList component.
+ * @returns {JSX.Element} - The rendered GameList component.
+ */
+export default function GameList({ user }: GameListProps) {
+    // State to hold the list of games fetched based on the current sorting criteria
+    const [games, setGames] = useState<GameInfo[]>([]);
+    // State to keep track of the sorting preference (default, deadline, score)
+    const [sortBy, setSortBy] = useState<"default" | "deadline" | "score">("default");
+ 
+    const gameListManager = GameListManager();
+ 
     /**
-     * Gets the sorted version of the list from the GameListManager depending on the
-     * user requested sort (lazily instead of eagerly).
+     * useEffect hook runs when the component mounts or when the sorting method
+     * or user name changes. It fetches the list of games based on the selected
+     * sorting criteria and updates the 'games' state.
      */
-    let sortStates: Record<string, () => GameInfo[]> =  {
-        "default": () => GameListManager.getGames(user.name),
-        "deadline": () => GameListManager.getGamesSortedByDeadline(user.name),
-        "score": () => GameListManager.getGameSortedByScore(user.name),
-    }
-
-    // Keeps track of the correct sort
-    const [sortState, setSortState] = useState(() => sortStates.default);
-
+    useEffect(() => {
+        let fetchedGames: GameInfo[] = [];
+        // Based on the sorting preference, fetch the games using GameListManager
+        if (sortBy === "deadline") {
+            fetchedGames = gameListManager.getGamesSortedByDeadline(user.name);
+        }
+        else if (sortBy === "score") {
+            fetchedGames = gameListManager.getGameSortedByScore(user.name);
+        }
+        else {
+            fetchedGames = gameListManager.getGames(user.name);
+        }
+        setGames(fetchedGames);
+    }, [user.name, sortBy]); // Re-run effect when user name or sortBy changes
+ 
+    /**
+     * Render the GameList component. This includes:
+     * 1. A dropdown to select the sorting criteria (default, deadline, score)
+     * 2. A list of games, each represented by a Game component
+     */
     return (
         <div>
-            {/* DROPDOWN for sorting option */}
-            <label htmlFor="sort-dropdown">Sort By: </label>
-            <select id="sort-dropdown" onChange={e => setSortState(() => sortStates[e.target.value])}>
+            <label htmlFor="sort-dropdown">Sort By:</label>
+            <select
+                id="sort-dropdown"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as "default" | "deadline" | "score")}
+            >
                 <option value="default">Default</option>
                 <option value="deadline">Deadline</option>
                 <option value="score">Score</option>
             </select>
-
-            {
-             /** 
-              * Map each available game from the GameListManager to a button that calls an onClick
-              * Method invokation for lazizness.
-              */
-            }
-            {sortState().map(gameInfo => 
-                <button 
-                key={gameInfo.Id}
-                onClick={() => onClick(gameInfo)}>
-                    {gameInfo.Name}
-                </button>
-            )}
+ 
+            <ul>
+                {games.map((game) => (
+                    <li key={game.Id}>
+                        <Game game={game} user={user} />
+                    </li>
+                ))}
+            </ul>
         </div>
-    )
+    );
 }
-
-export default GameList;
