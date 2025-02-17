@@ -47,9 +47,9 @@ const user2: User = {
 const user3: User = {
     name: "user-3",
     id: "id3",
-    assignments: ["Oedk", "Forest"],
+    assignments: ["Oedk", "Forest", "Rice"],
     scores: { 'Forest': 10, 'Oedk': 25, 'Rice':5 },
-    inventory: { 'Forest': ["water", "knife"], }
+    inventory: { 'Forest': ["water", "knife"], 'Oedk': ["helmet", "computer"], 'Rice': ['backpack']}
 };
 
 // Database Class
