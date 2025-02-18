@@ -5,7 +5,7 @@ import { GameInfo, User } from "./Types";
 const game1: GameInfo = {
     Name: "Oedk",
     Id: "1",
-    Instruction: "Welcome to the OEDK",
+    Instruction: "Welcome to the OEDK Game! You are standing outside a building. There is a ID reader next to its door right in front of you.",
     Deadline: Date.now(),
     Icon: "Image of Gear"
   };
@@ -13,16 +13,16 @@ const game1: GameInfo = {
   const game2: GameInfo = {
     Name: "Forest",
     Id: "2",
-    Instruction: "You're in a dark forest",
-    Deadline: Date.now(),
+    Instruction: "Welcome to the Forest! You're in a dark forest",
+    Deadline: new Date(2023, 11, 25).getTime(), // Christmas 2023
     Icon: "Image of Tree"
   };
   
   const game3: GameInfo = {
     Name: "Rice",
     Id: "3",
-    Instruction: "Welcome to Rice",
-    Deadline: Date.now(),
+    Instruction: "Welcome to Rice University!",
+    Deadline: new Date(2026, 11, 25).getTime(), // Christmas 2026
     Icon: "Image of Owl"
   };
   
