@@ -1,5 +1,6 @@
 import React from "react";
-import "./GameInterfacePage.css";
+// import "./GameInterfacePage.css";
+import "../Styles/GameInterfacePage.css";
 
 // // will replace with correctly routing to the home page, i am just unsure on how we are doing this
 // const onQuit = () => {
