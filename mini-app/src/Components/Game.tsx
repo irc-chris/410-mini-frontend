@@ -43,6 +43,7 @@ export default function Game({ game, user }: GameProps) {
         <div>
             <h2>{gameInfo.Name}</h2>
             <p>{gameInfo.Instruction}</p>
+            <p> Score: {user.scores[gameInfo.Name]}</p>
             <p>Deadline: {new Date(gameInfo.Deadline).toLocaleDateString()}</p>
         </div>
     );
