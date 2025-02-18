@@ -11,14 +11,14 @@ import { GameInfo, User } from "../Types";
  */
 interface GameListProps {
     user: User;
-    sortBy: "default" | "deadline" | "score";
+    sortBy: "default" | "deadline" | "score" | "name";
     onGameEntry: (game: GameInfo) => void;
 }
 
 /**
  * The GameList component displays a list of games assigned to the specified user.
  * The games are fetched and optionally sorted based on user preferences for sorting 
- * (by "default", "deadline", or "score"). Each game is displayed using the Game component.
+ * (by "default", "deadline", "score", or "name"). Each game is displayed using the Game component.
  * @param {GameListProps} props - The props for the GameList component.
  * @param {User} props.user - The user object containing details about the user
  * @param {string} props.sortBy - The string specifying the order of games

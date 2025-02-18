@@ -3,7 +3,7 @@ import { GameInfo, User } from "../Types";
 
 class GameListManager {
   
-    static getGames(username: string, sortBy: "default" | "deadline" | "score" = "default"): GameInfo[] {
+    static getGames(username: string, sortBy: "default" | "deadline" | "name" | "score" = "default"): GameInfo[] {
         if (!StubDB.Users.find(user => user.name === username)) {
             throw new Error("User not found");
         }

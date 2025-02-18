@@ -18,7 +18,7 @@ export function HomePage() {
     const [inGame, setInGame] = useState(false);
     const [gameUI, setGameUI] = useState(<></>);
     const [showLeaderboard, setShowLeaderboard] = useState(false);
-    const [sortBy, setSortBy] = useState<"default" | "deadline" | "score">("default");  // State to handle sorting
+    const [sortBy, setSortBy] = useState<"default" | "deadline" | "score" | "name">("default");  // State to handle sorting
 
     /**
      * Changes the displayed component to the main menu instead of the game.
@@ -42,7 +42,7 @@ export function HomePage() {
      * @param event - The event triggered when the sorting option is changed.
      */
     const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSortBy(event.target.value as "default" | "deadline" | "score");
+        setSortBy(event.target.value as "default" | "deadline" | "score" | "name");
     };
 
     if (inGame) {
@@ -66,6 +66,7 @@ export function HomePage() {
                     <option value="default">Default</option>
                     <option value="deadline">Deadline</option>
                     <option value="score">Score</option>
+                    <option value="name">Name</option>
                 </select>
             </div>
 
