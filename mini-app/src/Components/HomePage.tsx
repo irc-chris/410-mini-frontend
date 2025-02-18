@@ -70,7 +70,7 @@ export function HomePage() {
             </div>
 
             {/* Pass the selected sortBy to the GameList component */}
-            <GameList user={SAMPLE_USER} sortBy={sortBy} />
+            <GameList user={SAMPLE_USER} sortBy={sortBy} onGameEntry={onGameEntry} />
         </div>
     )
 }

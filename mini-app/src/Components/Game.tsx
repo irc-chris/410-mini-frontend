@@ -16,7 +16,7 @@ interface GameProps {
  *
  * @param {Object} props - The component props
  * @param {GameInfo} props.game - The game object that contains the initial game data
- * @param {User} props.user - The user object containing details about the user
+ * @param {User} props.user - The user object containing information about the user
  * @returns {JSX.Element} A React element displaying the game's information.
  */
 export default function Game({ game, user }: GameProps) {

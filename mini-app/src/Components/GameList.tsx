@@ -12,6 +12,7 @@ import { GameInfo, User } from "../Types";
 interface GameListProps {
     user: User;
     sortBy: "default" | "deadline" | "score";
+    onGameEntry: (game: GameInfo) => void;
 }
 
 /**
@@ -21,9 +22,10 @@ interface GameListProps {
  * @param {GameListProps} props - The props for the GameList component.
  * @param {User} props.user - The user object containing details about the user
  * @param {string} props.sortBy - The string specifying the order of games
+ * @param {function} props.onGameEntry - The function that monitors when a game is clicked
  * @returns {JSX.Element} - The rendered GameList component.
  */
-export default function GameList({ user, sortBy }: GameListProps) {
+export default function GameList({ user, sortBy, onGameEntry }: GameListProps) {
     // State to hold the list of games fetched based on the current sorting criteria
     const [games, setGames] = useState<GameInfo[]>([]);
 
@@ -45,9 +47,23 @@ export default function GameList({ user, sortBy }: GameListProps) {
         <div>
             <p>Currently sorting by: <strong>{sortBy}</strong></p>
 
-            <ul>
+            <ul style={{ listStyle: "none", padding: 0 }}>
                 {games.map((game) => (
-                    <li key={game.Id}>
+                    <li key={game.Id}
+                        onClick={() => onGameEntry(game)}
+                        style={{
+                            border: "1px solid #ccc",
+                            borderRadius: "8px",
+                            padding: "10px",
+                            marginBottom: "10px",
+                            cursor: "pointer",
+                            transition: "background-color 0.3s",
+                            backgroundColor: "#f9f9f9",
+                            boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.1)",
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#e0e0e0"}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#f9f9f9"}
+                    >
                         <Game game={game} user={user} />
                     </li>
                 ))}
