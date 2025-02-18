@@ -19,7 +19,7 @@ function GameInterface({
 }: {
   title: string;
   instructions: string;
-  inventory: Record<string, string[]>;
+  inventory: string[];
   onQuit: () => void
 }) {
   return (
@@ -31,16 +31,11 @@ function GameInterface({
       <div className="body">
         <aside className="inventory">
           <h3>Inventory</h3>
-          {Object.entries(inventory).map(([key, items]) => (
-            <div key={key}>
-              <strong>{key}</strong>
-              <ul>
-                {items.map((item, i) => (
-                  <li key={i}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {
+            inventory.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))
+          }
         </aside>
         <main className="main">
           <p>{instructions}</p>

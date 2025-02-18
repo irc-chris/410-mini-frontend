@@ -33,7 +33,7 @@ export function HomePage() {
      * @param game The game to be played as a GameInfo
      */
     function onGameEntry(game: GameInfo) {
-        setGameUI(<GameInterface title={game.Name} instructions={game.Instruction} inventory={SAMPLE_USER.inventory} onQuit={onGameExit} />)
+        setGameUI(<GameInterface title={game.Name} instructions={game.Instruction} inventory={SAMPLE_USER.inventory[game.Name]} onQuit={onGameExit} />)
         setInGame(true);
     }
 
