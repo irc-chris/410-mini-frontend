@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { GameInfo, User } from "../Types";
-import GameDataManager from "../DataManagers/GameDataManager";
 
 // Define the props that the Game component will receive
 interface GameProps {
@@ -20,31 +19,15 @@ interface GameProps {
  * @returns {JSX.Element} A React element displaying the game's information.
  */
 export default function Game({ game, user }: GameProps) {
-    // State to store the game data after it's fetched
-    const [gameInfo, setGameInfo] = useState<GameInfo | null>(null);
-
-    /**
-     * useEffect hook to fetch the game data when the component is mounted or when the gameId or userName changes.
-     * This hook is used to call the GameDataManager and retrieve the full details for the game.
-     */
-    useEffect(() => {
-        const gameDataManager = GameDataManager();
-        // Fetch the game data using the GameDataManager's getGameInfo method
-        // This function is expected to return an object with the game and user details
-        const { game: fetchedGame } = gameDataManager.getGameInfo(user.name, game.Id);
-        setGameInfo(fetchedGame);
-    }, [game.Id, user.name]);// Re-run the effect when either the game ID or username changes
-
-    // If the gameInfo has not been fetched yet, show a loading message
-    if (!gameInfo) return <div>Loading...</div>;
-
-    // Once gameInfo is available, render the game details (name, instructions, deadline)
+    /**  Render the game details (name, instructions, score,
+     * deadline) passed through props parameters
+    */
     return (
         <div>
-            <h2>{gameInfo.Name}</h2>
-            <p>{gameInfo.Instruction}</p>
-            <p> Score: {user.scores[gameInfo.Name]}</p>
-            <p>Deadline: {new Date(gameInfo.Deadline).toLocaleDateString()}</p>
+            <h2>{game.Name}</h2>
+            <p>{game.Instruction}</p>
+            <p> Score: {user.scores[game.Name]}</p>
+            <p>Deadline: {new Date(game.Deadline).toLocaleDateString()}</p>
         </div>
     );
 }
