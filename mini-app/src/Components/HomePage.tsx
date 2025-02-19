@@ -6,6 +6,7 @@ import { users } from "../DataManagers/UserManager";
 import GameList from "./GameList";
 import GameInterface from "./GameInterfacePage";
 import { GameInfo } from "../Types";
+import client2ServerAdapter from "../Integration/connection";
 
 // TODO: fetch from authentication layer (global state? singleton and useEffect?)
 const SAMPLE_USER = users[0];
@@ -76,6 +77,10 @@ export function HomePage() {
             <option value="score">Score</option>
             <option value="name">Name</option>
           </select>
+        </div>
+
+        <div> Connection:
+          <button onClick={client2ServerAdapter.initialize}> Connect</button>
         </div>
 
         {/* Pass the selected sortBy to the GameList component */}
