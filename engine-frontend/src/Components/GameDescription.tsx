@@ -1,16 +1,6 @@
 "use client";
 import React from "react";
-import { Game } from "./game";
-import { Lobby } from "./lobby";
-
-export function GameDescription() {
-    const AccessGame = () => {
-        return <Game />;
-    };
-
-    const AccessLobby = () => {
-        return <Lobby />;
-    };
+export function GameDescription({ AccessGame, AccessLobby }: { AccessGame: () => void, AccessLobby: () => void }) {
 
     // This may be automatically choosen instead of 2 butttons
     return (

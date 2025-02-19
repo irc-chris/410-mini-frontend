@@ -1,17 +1,12 @@
 "use client";
 import React from "react";
-import { GameDescription } from "./gameDescription";
+import { GameDescription } from "./GameDescription";
+import { useRouter } from "next/navigation"; // Import useRouter
 
-export function Home() {
-
-    // Navigate to Game Description page (need to change to game description for each game)
-    const AccessGameDescription = () => {
-        return <GameDescription />;
-    };
-
+export function Home({ AccessGameDescription }: { AccessGameDescription: () => void }) {
     return (
         <div>
-        <button onClick={AccessGameDescription}>Sign In</button>
+        <button onClick={AccessGameDescription}> Go to Game Description</button>
         </div>
     );
 }
