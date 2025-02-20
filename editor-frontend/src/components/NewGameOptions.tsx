@@ -2,11 +2,10 @@
 import React, { useState } from 'react';
 import GameEditorCanvas from './GameEditorCanvas';
 
-function NewGameOptions() {
+function NewGameOptions({ AccessGameEditor }: { AccessGameEditor: () => void}) {
 
     function handleGameEditor() {
-        return <GameEditorCanvas />
-
+        AccessGameEditor() // navigate to game editor
     }
     return (
         <div> 

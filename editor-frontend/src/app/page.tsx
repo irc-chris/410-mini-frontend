@@ -1,9 +1,37 @@
+"use client";
 import Image from "next/image";
 import styles from "./page.module.css";
+import AssignGame from "../Components/AssignGame";
+import GameEditorCanvas from "../Components/GameEditorCanvas";
+import Home from "../Components/Home";
+import Introduction from "../Components/Introduction";
+import NewGameOptions from "../Components/NewGameOptions";
+import SceneEditorCanvas from "../Components/SceneEditorCanvas";
+import SignIn from "../Components/SignIn";
+import React, { useState } from "react";
 
-export default function Home() {
+export default function Page() {
+
+  const [currentPage, setCurrentPage] = useState("introduction");
+
+    // Function to navigate between pages
+    const navigate = (page: string) => {
+        setCurrentPage(page);
+    };
+
   return (
     <div className={styles.page}>
+
+        <div>
+            {currentPage === "introduction" && <Introduction AccessSignIn={() => navigate("signin")} />}
+            {currentPage === "signin" && <SignIn AccessHome={() => navigate("home")} />}
+            {currentPage === "home" && <Home AccessNewGameOptions={() => navigate("newgameoptions")}/>}
+            {currentPage === "newgameoptions" && <NewGameOptions AccessGameEditor={() => navigate("gameeditor")}/>}
+            {currentPage === "gameeditor" && <GameEditorCanvas AccessAssignGame={() => navigate("assigngame")} AccessSceneEditor={() => navigate("sceneeditor")} />}
+            {currentPage === "sceneeditor" && <SceneEditorCanvas/>}
+            {currentPage === "assigngame" && <AssignGame/>}
+        </div>
+
       <main className={styles.main}>
         <Image
           className={styles.logo}
@@ -90,6 +118,6 @@ export default function Home() {
           Go to nextjs.org →
         </a>
       </footer>
-    </div>
-  );
+    </div>    
+);
 }

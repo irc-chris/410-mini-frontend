@@ -2,10 +2,10 @@
 import React from "react";
 import Home from "./Home";
 
-function SignIn() {
+function SignIn({ AccessHome }: { AccessHome: () => void}) {
     // check the password and username and navigate to the home page. 
     const handleSignIn = () => {
-       return <Home />;
+       AccessHome()
     };
 
     return (

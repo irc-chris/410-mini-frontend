@@ -2,14 +2,14 @@ import React from 'react';
 import SceneEditorCanvas from './SceneEditorCanvas';
 import AssignGame from './AssignGame';
 
-function GameEditorCanvas() {
+function GameEditorCanvas({ AccessAssignGame, AccessSceneEditor }: { AccessAssignGame: () => void, AccessSceneEditor: () => void}) {
 
     function handleSceneEditor() {
-        return <SceneEditorCanvas />
+        AccessSceneEditor() //navigate
     }
 
     function handleAssignGames() {
-        return <AssignGame />
+        AccessAssignGame() //navigate
     }
 
 

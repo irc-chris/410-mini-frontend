@@ -1,18 +1,12 @@
 "use client";
 import React from "react";
-import SignIn from "./SignIn";
 
-function Introduction() {
-
-    // navigate to the sign in page
-    const handleSignIn = () => {
-       return <SignIn />;
-    };
+function Introduction({ AccessSignIn }: { AccessSignIn: () => void}) {
 
     return (
         <div>
         <h1>Welcome to the Game Editor</h1>
-        <button onClick={handleSignIn}>Sign In</button>
+        <button onClick={AccessSignIn}>Sign In</button>
         </div>
     );
 }

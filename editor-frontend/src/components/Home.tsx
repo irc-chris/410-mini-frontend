@@ -2,9 +2,9 @@
 import React from "react";
 import  NewGameOptions from "./NewGameOptions";
 
-function Home() {
+function Home({ AccessNewGameOptions}: { AccessNewGameOptions: () => void}) {
     function handleCreateGame() {
-        return <NewGameOptions />;
+        AccessNewGameOptions()
     }
 
     return (
