@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Leaderboard from "./Leaderboard";
 import { users } from "../DataManagers/UserManager";
 import GameList from "./GameList";
 import GameInterface from "./GameInterfacePage";
 import { GameInfo } from "../Types";
-import client2ServerAdapter from "../Integration/connection";
+import client2ServerAdapter, { initializeAdapter } from "../Integration/connection";
 
 // TODO: fetch from authentication layer (global state? singleton and useEffect?)
 const SAMPLE_USER = users[0];
@@ -19,9 +19,24 @@ export function HomePage() {
   const [inGame, setInGame] = useState(false);
   const [gameUI, setGameUI] = useState(<></>);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false); // Eventually used by the setting up of our listener handlers
+  const hasInitialized = useRef(false);
   const [sortBy, setSortBy] = useState<
     "default" | "deadline" | "score" | "name"
   >("default"); // State to handle sorting
+
+  /**
+   * Since this is the homepage, we want to initialize our connection here.
+   * 
+   * useEffect to initialize the client2ServerAdapter when the component mounts.
+   * Ensures the adapter is only initialized once.
+   */
+    useEffect(() => {
+      if (hasInitialized.current) return; // Prevent re-initialization
+        
+      initializeAdapter(setIsInitialized, hasInitialized);
+    }, []);
+
 
   /**
    * Changes the displayed component to the main menu instead of the game.
