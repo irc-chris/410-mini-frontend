@@ -1,33 +1,49 @@
 import React from "react";
-import { GameInfo, User } from "../Types";
+import { GameInfo, GameLocation } from "../Types";
 
 // Define the props that the Game component will receive
 interface GameProps {
     game: GameInfo;
-    user: User;
+    userSaveState?: {
+        last_location?: GameLocation;
+        attributes?: Record<string, any>;
+    };
 }
 
 /**
  * Component for displaying detailed information about a specific game.
- * It retrieves the game details based on the user and the game info passed as props.
- * The data is fetched asynchronously using the GameDataManager, and the component renders
- * the game details once the data is available.
- *
+ * It checks if the game has been published. If so, it retrieves and displays game details
+ * based on the game info and user state passed as props.
+ * 
  * @param {Object} props - The component props
  * @param {GameInfo} props.game - The game object that contains the initial game data
- * @param {User} props.user - The user object containing information about the user
+ * @param {User} props.userSaveState - Any progress user may have saved previously
  * @returns {JSX.Element} A React element displaying the game's information.
  */
-export default function Game({ game, user }: GameProps) {
+export default function Game({ game, userSaveState }: GameProps) {
+    // NEW FUNCTIONALITY: Check if the game is published
+    if (!game.playable) {
+        return (
+            <div>
+                <h2>{game.name} (In Development)</h2>
+                <p>This game is not yet published.</p>
+            </div>
+        );
+    }
+
+    // Get score from saved state if available
+    const userScore = userSaveState?.attributes?.score ?? "No progress yet";
+    const lastLocation = userSaveState?.last_location?.description ?? "Unknown";
+
     /**  Render the game details (name, instructions, score,
      * deadline) passed through props parameters
     */
     return (
         <div>
-            <h2>{game.Name}</h2>
-            <p>{game.Instruction}</p>
-            <p> Score: {user.scores[game.Name]}</p>
-            <p>Deadline: {new Date(game.Deadline).toLocaleDateString()}</p>
+            <h2>{game.name}</h2>
+            <p>Created by: {game.user_id}</p>
+            <p>Last Location: {lastLocation}</p>
+            <p>Score: {userScore}</p>
         </div>
     );
 }

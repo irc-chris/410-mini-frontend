@@ -3,7 +3,7 @@ export type GameInfo = {
     name: string; // name of game
     user_id: string; // user that created the game (partition key)
     playable: boolean; // monitors if the game is available to play (published)
-    world: Location[]; // array of locations in the game world
+    world: GameLocation[]; // array of locations in the game world
     user_save_states: Record<string, SaveState>; // map of users to their save states
     player_beginning_stat: Record<string, any>; // initial attributes for a player
 }
@@ -18,12 +18,12 @@ export type User = {
     games_created: string[]; // games created by the user
 }
 
-export type Location = {
+export type GameLocation = {
     location_id: string; // unique location id
     game_id: string; // associated game id (partition key)
     aliases: string[]; // alternative names for this location
     description: string; // location description
-    exits: Location[]; // accessible locations
+    exits: GameLocation[]; // accessible locations
     entities: Entity[]; // entities present in this location
 }
 
@@ -32,7 +32,7 @@ export type SaveState = {
     player: User; // player this save state belongs to
     inventory: Entity[]; // items in user's inventory
     attributes: Record<string, any>; // custom properties
-    last_location: Location; // last saved location
+    last_location: GameLocation; // last saved location
 }
 
 export type Entity = {
