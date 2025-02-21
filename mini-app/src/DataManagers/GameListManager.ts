@@ -1,49 +1,40 @@
 import { StubDB } from "../StubData";
-import { GameInfo, User } from "../Types";
+import { GameInfo, User, GameLocation, Entity } from "../Types";
 
 class GameListManager {
   
-    static getGames(username: string, sortBy: "default" | "deadline" | "name" | "score" = "default"): GameInfo[] {
-        if (!StubDB.Users.find(user => user.name === username)) {
+    static getGames(username: string, sortBy: "default" | "name" | "score" = "default"): GameInfo[] {
+        const userInfo: User | undefined = StubDB.Users.find(user => user.user_id = username);
+        if (!userInfo) {
             throw new Error("User not found");
         }
         
-        var userInfo: User = StubDB.Users.find(user => user.name === username)!;
-        var games: GameInfo[] = StubDB.Games;
-        var gamesByUser: GameInfo[] = games.filter(game => userInfo.assignments.includes(game.Name));
+        let games: GameInfo[] = StubDB.Games;
+        let gamesByUser: GameInfo[] = games.filter(game => 
+            userInfo.game_permissions.includes(game.game_id) || userInfo.games_created.includes(game.game_id)
+        );
 
         // Apply sorting based on sortBy
-        if (sortBy === "deadline") {
-            gamesByUser.sort((a, b) => a.Deadline - b.Deadline);
-        } else if (sortBy === "score") {
-            gamesByUser.sort((a, b) => userInfo.scores[a.Name] - userInfo.scores[b.Name]);
+        switch (sortBy) {
+            case "score":
+                gamesByUser.sort((a, b) => {
+                    const scoreA = a.user_save_states[userInfo.user_id]?.attributes?.score || 0;
+                    const scoreB = b.user_save_states[userInfo.user_id]?.attributes?.score || 0;
+                    return scoreB - scoreA;
+                });
+                break;
+            case "name":
+                gamesByUser.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case "default":
+            default:
+                break;
         }
+
+        // NEW FUNCTIONALITY: filter games that are either playable or created by user
+        gamesByUser = gamesByUser.filter(game => game.playable || game.user_id === userInfo.user_id);
         return gamesByUser;
     }
-    
-    // static getGamesSortedByDeadline(username: string): GameInfo[] {
-    //     if (!StubDB.Users.find(user => user.name === username)) {
-    //         throw new Error("User not found");
-    //     }
-        
-    //     var userInfo: User = StubDB.Users.find(user => user.name === username)!;
-    //     var games: GameInfo[] = StubDB.Games;
-    //     var gamesByUser: GameInfo[] = games.filter(game => userInfo.assignments.includes(game.Name));
-    //     gamesByUser.sort((a, b) => a.Deadline - b.Deadline);
-    //     return gamesByUser;
-    // }
-
-    // static getGameSortedByScore(username: string): GameInfo[] {
-    //     if (!StubDB.Users.find(user => user.name === username)) {
-    //         throw new Error("User not found");
-    //     }
-        
-    //     var userInfo: User = StubDB.Users.find(user => user.name === username)!;
-    //     var games: GameInfo[] = StubDB.Games;
-    //     var gamesByUser: GameInfo[] = games.filter(game => userInfo.assignments.includes(game.Name));
-    //     gamesByUser.sort((a, b) => userInfo.scores[a.Name] - userInfo.scores[b.Name]);
-    //     return gamesByUser;
-    // }
 }
 
 export default GameListManager;
