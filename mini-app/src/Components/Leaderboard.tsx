@@ -1,19 +1,18 @@
 "use client";
 import React from "react";
 import { users } from "../DataManagers/UserManager";
+import GameListManager from "../DataManagers/GameListManager";
 
 export function Leaderboard() {
     // Collect unique game names from user assignments
-    const allGames = Array.from(
-      new Set(users.flatMap((user) => Object.keys(user.scores)))
-    );
+    const allGames = GameListManager.getAllGames();
   
     return (
       <div>
         <h1>Leaderboard</h1>
         {allGames.map((game) => (
-          <div key={game}>
-            <h2>{game}</h2>
+          <div key={game.game_id}>
+            <h2>{game.name}</h2>
             <table>
               <thead>
                 <tr>
@@ -24,21 +23,27 @@ export function Leaderboard() {
               </thead>
               <tbody>
                 {users
-                  .filter((user) => user.scores[game] !== undefined)
-                  .sort((a, b) => (b.scores[game] || 0) - (a.scores[game] || 0))
-                  .map((user, index) => (
-                    <tr key={user.id}>
-                      <td>{index + 1}</td>
-                      <td>{user.name}</td>
-                      <td>{user.scores[game] || 0}</td>
-                    </tr>
-                  ))}
+                .map((user) => {
+                  const saveState = game.user_save_states[user.user_id];
+                  return {
+                    user,
+                    score: saveState?.attributes?.score ?? "No progress yet"
+                  };
+                })
+                .sort((a, b) => (b.score === "No progress yet" ? 0 : b.score) - (a.score === "No progress yet" ? 0 : a.score))
+                .map(({ user, score }, index) => (
+                  <tr key={user.user_id}>
+                    <td>{index+1}</td>
+                    <td>{user.username}</td>
+                    <td>{score}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         ))}
       </div>
-    );
-  }
+      );
+    }
   
   export default Leaderboard;

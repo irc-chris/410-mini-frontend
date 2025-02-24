@@ -5,10 +5,10 @@ import Leaderboard from "./Leaderboard";
 import { users } from "../DataManagers/UserManager";
 import GameList from "./GameList";
 import GameInterface from "./GameInterfacePage";
-import { GameInfo } from "../Types";
+import { GameInfo, User } from "../Types";
 
 // TODO: fetch from authentication layer (global state? singleton and useEffect?)
-const SAMPLE_USER = users[0];
+const SAMPLE_USER: User = users[0];
 
 /**
  * Frankly, CSS styling is horrible here but I can fix this later.
@@ -18,7 +18,7 @@ export function HomePage() {
     const [inGame, setInGame] = useState(false);
     const [gameUI, setGameUI] = useState(<></>);
     const [showLeaderboard, setShowLeaderboard] = useState(false);
-    const [sortBy, setSortBy] = useState<"default" | "deadline" | "score" | "name">("default");  // State to handle sorting
+    const [sortBy, setSortBy] = useState<"default" | "score" | "name">("default");  // State to handle sorting
 
     /**
      * Changes the displayed component to the main menu instead of the game.
@@ -33,7 +33,7 @@ export function HomePage() {
      * @param game The game to be played as a GameInfo
      */
     function onGameEntry(game: GameInfo) {
-        setGameUI(<GameInterface title={game.Name} instructions={game.Instruction} inventory={SAMPLE_USER.inventory[game.Name]} onQuit={onGameExit} />)
+        setGameUI(<GameInterface title={game.name} onQuit={onGameExit} />)
         setInGame(true);
     }
 
@@ -42,7 +42,7 @@ export function HomePage() {
      * @param event - The event triggered when the sorting option is changed.
      */
     const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSortBy(event.target.value as "default" | "deadline" | "score" | "name");
+        setSortBy(event.target.value as "default" | "score" | "name");
     };
 
     if (inGame) {
@@ -50,7 +50,7 @@ export function HomePage() {
     } else return (
         <div>
             {/* TODO: Display username better using CSS */}
-            <div><b>Username: </b>{SAMPLE_USER.name}</div>
+            <div><b>Username: </b>{SAMPLE_USER.username}</div>
             <button onClick={() => setShowLeaderboard(!showLeaderboard)}>
                 {showLeaderboard ? "Hide Leaderboard" : "Show Leaderboard"}
             </button>

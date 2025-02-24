@@ -13,13 +13,9 @@ const onSend = () => {
 
 function GameInterface({
   title,
-  instructions,
-  inventory,
   onQuit
 }: {
   title: string;
-  instructions: string;
-  inventory: string[];
   onQuit: () => void
 }) {
   return (
@@ -30,15 +26,8 @@ function GameInterface({
       </header>
       <div className="body">
         <aside className="inventory">
-          <h3>Inventory</h3>
-          {
-            inventory.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))
-          }
         </aside>
         <main className="main">
-          <p>{instructions}</p>
         </main>
       </div>
       <footer className="footer">
