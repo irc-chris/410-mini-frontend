@@ -12,7 +12,7 @@ const SAMPLE_USER: User = users[0];
 
 /**
  * Frankly, CSS styling is horrible here but I can fix this later.
- * @returns 
+ * @returns
  */
 export function HomePage() {
     const [inGame, setInGame] = useState(false);
@@ -20,13 +20,13 @@ export function HomePage() {
     const [showLeaderboard, setShowLeaderboard] = useState(false);
     const [sortBy, setSortBy] = useState<"default" | "score" | "name">("default");  // State to handle sorting
 
-    /**
-     * Changes the displayed component to the main menu instead of the game.
-     */
-    function onGameExit() {
-        setGameUI(<></>);
-        setInGame(false);
-    }
+  /**
+   * Changes the displayed component to the main menu instead of the game.
+   */
+  function onGameExit() {
+    setGameUI(<></>);
+    setInGame(false);
+  }
 
     /**
      * Changes the displayed component to the gameplay screen instead of the main menu.
@@ -45,9 +45,12 @@ export function HomePage() {
         setSortBy(event.target.value as "default" | "score" | "name");
     };
 
-    if (inGame) {
-        return gameUI;
-    } else return (
+  if (inGame) {
+    return gameUI;
+  } else
+    return (
+      <div>
+        {/* TODO: Display username better using CSS */}
         <div>
             {/* TODO: Display username better using CSS */}
             <div><b>Username: </b>{SAMPLE_USER.username}</div>
@@ -72,6 +75,15 @@ export function HomePage() {
 
             {/* Pass the selected sortBy to the GameList component */}
             <GameList user={SAMPLE_USER} sortBy={sortBy} onGameEntry={onGameEntry} />
+
         </div>
-    )
+
+        {/* Pass the selected sortBy to the GameList component */}
+        <GameList
+          user={SAMPLE_USER}
+          sortBy={sortBy}
+          onGameEntry={onGameEntry}
+        />
+      </div>
+    );
 }
