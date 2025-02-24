@@ -25,7 +25,7 @@ function GameInterface({
   return (
     <div className="container">
       <header className="header">
-        <span className="headerTitle">{game.Name}</span>
+        <span className="headerTitle">{game.name}</span>
         <button onClick={onQuit}>Quit</button>
       </header>
       <div className="body">

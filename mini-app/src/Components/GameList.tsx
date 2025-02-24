@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from "react";
-import Game from "./Game";
+import GameComponent from "./Game";
 import GameListManager from "../DataManagers/GameListManager";
-import { GameInfo, User, SaveState } from "../Types";
+import { Game, User, SaveState } from "../Types";
 
 /**
  * GameListProps defines the expected props for the GameList component.
@@ -13,7 +13,7 @@ import { GameInfo, User, SaveState } from "../Types";
 interface GameListProps {
     user: User;
     sortBy: "default" | "score" | "name";
-    onGameEntry: (game: GameInfo) => void;
+    onGameEntry: (game: Game) => void;
 }
 
 /**
@@ -28,7 +28,7 @@ interface GameListProps {
  */
 export default function GameList({ user, sortBy, onGameEntry }: GameListProps) {
     // State to hold the list of games fetched based on the current sorting criteria
-    const [games, setGames] = useState<GameInfo[]>([]);
+    const [games, setGames] = useState<Game[]>([]);
 
     /**
      * useEffect hook runs when the component mounts or when the sorting method
@@ -77,7 +77,7 @@ export default function GameList({ user, sortBy, onGameEntry }: GameListProps) {
                             onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#f9f9f9"}
                         >
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <Game game={game} userSaveState={userSaveState} />
+                                <GameComponent game={game} userSaveState={userSaveState} />
                                 <span style={{ fontStyle: "italic", fontSize: "0.9em", color: "#666" }}>
                                     {isInDevelopment ? "In Development" : hasProgress ? "Resume Game" : "New Game"}
                                 </span>

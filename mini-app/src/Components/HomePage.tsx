@@ -5,7 +5,7 @@ import Leaderboard from "./Leaderboard";
 import { users } from "../DataManagers/UserManager";
 import GameList from "./GameList";
 import GameInterface from "./GameInterfacePage";
-import { GameInfo, User } from "../Types";
+import { Game, User } from "../Types";
 
 // TODO: fetch from authentication layer (global state? singleton and useEffect?)
 const SAMPLE_USER: User = users[0];
@@ -30,9 +30,9 @@ export function HomePage() {
 
     /**
      * Changes the displayed component to the gameplay screen instead of the main menu.
-     * @param game The game to be played as a GameInfo
+     * @param game The game to be played as a Game
      */
-    function onGameEntry(game: GameInfo) {
+    function onGameEntry(game: Game) {
         setGameUI(<GameInterface title={game.name} onQuit={onGameExit} />)
         setInGame(true);
     }
@@ -50,8 +50,6 @@ export function HomePage() {
   } else
     return (
       <div>
-        {/* TODO: Display username better using CSS */}
-        <div>
             {/* TODO: Display username better using CSS */}
             <div><b>Username: </b>{SAMPLE_USER.username}</div>
             <button onClick={() => setShowLeaderboard(!showLeaderboard)}>
@@ -77,13 +75,5 @@ export function HomePage() {
             <GameList user={SAMPLE_USER} sortBy={sortBy} onGameEntry={onGameEntry} />
 
         </div>
-
-        {/* Pass the selected sortBy to the GameList component */}
-        <GameList
-          user={SAMPLE_USER}
-          sortBy={sortBy}
-          onGameEntry={onGameEntry}
-        />
-      </div>
-    );
+  );
 }

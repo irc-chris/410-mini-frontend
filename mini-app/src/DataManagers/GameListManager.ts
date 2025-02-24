@@ -1,21 +1,21 @@
 import { StubDB } from "../StubData";
-import { GameInfo, User } from "../Types";
+import { Game, User } from "../Types";
 
 class GameListManager {
   
-    static getAllGames(): GameInfo[] {
+    static getAllGames(): Game[] {
         return StubDB.Games;
     }
     
-    static getGames(username: string, sortBy: "default" | "name" | "score" = "default"): GameInfo[] {
+    static getGames(username: string, sortBy: "default" | "name" | "score" = "default"): Game[] {
         const userInfo: User | undefined = StubDB.Users.find(user => user.user_id === username);
         if (!userInfo) {
             throw new Error("User not found");
         }
         
-        let games: GameInfo[] = StubDB.Games;
-        let gamesByUser: GameInfo[] = games.filter(game => 
-            userInfo.game_permissions.includes(game.game_id) || userInfo.games_created.includes(game.game_id)
+        let games: Game[] = StubDB.Games;
+        let gamesByUser: Game[] = games.filter(game => 
+            userInfo.game_permissions.includes(game) || userInfo.games_created.includes(game)
         );
 
         // Apply sorting based on sortBy
@@ -40,7 +40,7 @@ class GameListManager {
         return gamesByUser;
     }
 
-    static getGameById(gameId: string): GameInfo | undefined {
+    static getGameById(gameId: string): Game | undefined {
         return StubDB.Games.find(game => game.game_id === gameId);
     }
 }

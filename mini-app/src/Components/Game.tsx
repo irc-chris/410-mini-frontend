@@ -1,11 +1,11 @@
 import React from "react";
-import { GameInfo, GameLocation } from "../Types";
+import { Game, Location } from "../Types";
 
 // Define the props that the Game component will receive
 interface GameProps {
-    game: GameInfo;
+    game: Game;
     userSaveState?: {
-        last_location?: GameLocation;
+        last_location?: Location;
         attributes?: Record<string, any>;
     };
 }
@@ -20,7 +20,7 @@ interface GameProps {
  * @param {User} props.userSaveState - Any progress user may have saved previously
  * @returns {JSX.Element} A React element displaying the game's information.
  */
-export default function Game({ game, userSaveState }: GameProps) {
+export default function GameComponent({ game, userSaveState }: GameProps) {
     // NEW FUNCTIONALITY: Check if the game is published
     if (!game.playable) {
         return (

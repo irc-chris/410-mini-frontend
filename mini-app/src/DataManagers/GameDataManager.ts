@@ -1,13 +1,13 @@
 import { StubDB } from "../StubData";
-import { GameInfo, User } from "../Types";
+import { Game, User } from "../Types";
 
 function GameDataManager() {
-    function getGameInfo(username: String, gameID: String): {user: User, game: GameInfo} {
+    function getGame(username: String, gameID: String): {user: User, game: Game} {
         let user: User = StubDB.Users.find((user) => user.username === username)!;
-        let game: GameInfo = StubDB.Games.find((game) => game.game_id === gameID)!;
+        let game: Game = StubDB.Games.find((game) => game.game_id === gameID)!;
         return {user, game}; 
     }
-    return { getGameInfo };
+    return { getGame };
 }
 
 export default GameDataManager;
