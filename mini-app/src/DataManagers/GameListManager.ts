@@ -1,10 +1,14 @@
 import { StubDB } from "../StubData";
-import { GameInfo, User, GameLocation, Entity } from "../Types";
+import { GameInfo, User } from "../Types";
 
 class GameListManager {
   
+    static getAllGames(): GameInfo[] {
+        return StubDB.Games;
+    }
+    
     static getGames(username: string, sortBy: "default" | "name" | "score" = "default"): GameInfo[] {
-        const userInfo: User | undefined = StubDB.Users.find(user => user.user_id = username);
+        const userInfo: User | undefined = StubDB.Users.find(user => user.user_id === username);
         if (!userInfo) {
             throw new Error("User not found");
         }
@@ -34,6 +38,10 @@ class GameListManager {
         // NEW FUNCTIONALITY: filter games that are either playable or created by user
         gamesByUser = gamesByUser.filter(game => game.playable || game.user_id === userInfo.user_id);
         return gamesByUser;
+    }
+
+    static getGameById(gameId: string): GameInfo | undefined {
+        return StubDB.Games.find(game => game.game_id === gameId);
     }
 }
 

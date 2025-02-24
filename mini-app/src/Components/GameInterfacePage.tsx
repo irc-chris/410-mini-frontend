@@ -13,13 +13,11 @@ const onSend = () => {
 };
 
 function GameInterface({
-  username,
-  gameId,
-  onQuit,
+  title,
+  onQuit
 }: {
-  username: string;
-  gameId: string;
-  onQuit: () => void;
+  title: string;
+  onQuit: () => void
 }) {
   // Uses the manager to get GameInfo
   const { getGameInfo } = GameInterfaceManager();
@@ -32,13 +30,8 @@ function GameInterface({
       </header>
       <div className="body">
         <aside className="inventory">
-          <h3>Inventory</h3>
-          {user.inventory[game.Name].map((item, i) => (
-            <li key={i}>{item}</li>
-          ))}
         </aside>
         <main className="main">
-          <p>{game.Instruction}</p>
         </main>
       </div>
       <footer className="footer">
