@@ -22,7 +22,7 @@ function GameInterface({
 }) {
   // Uses the manager to get GameInfo
   const { getGameInfo } = GameInterfaceManager();
-  const { user, game } = getGameInfo(SAMPLE_USER.username, title);
+  const { user, game, invent } = getGameInfo(SAMPLE_USER.username, title);
   return (
     <div className="container">
       <header className="header">
@@ -31,6 +31,10 @@ function GameInterface({
       </header>
       <div className="body">
         <aside className="inventory">
+        <h3>Inventory</h3>
+          {invent.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
         </aside>
         <main className="main">
         </main>

@@ -65,7 +65,7 @@ const gameA: Game = {
   
   const gameC: Game = {
     game_id: "3",
-    name: "ARice",
+    name: "Rice",
     user_id: "user3",
     playable: true,
     world: [],
