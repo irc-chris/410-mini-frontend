@@ -1,6 +1,7 @@
 import React from "react";
 import "../Styles/GameInterfacePage.css";
 import GameInterfaceManager from "../DataManagers/GameInterfaceManager";
+import { SAMPLE_USER } from "./HomePage";
 
 // // will replace with correctly routing to the home page, i am just unsure on how we are doing this
 // const onQuit = () => {
@@ -21,7 +22,7 @@ function GameInterface({
 }) {
   // Uses the manager to get GameInfo
   const { getGameInfo } = GameInterfaceManager();
-  const { user, game } = getGameInfo(username, gameId);
+  const { user, game } = getGameInfo(SAMPLE_USER.username, title);
   return (
     <div className="container">
       <header className="header">

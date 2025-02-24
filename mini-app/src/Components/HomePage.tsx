@@ -8,7 +8,7 @@ import GameInterface from "./GameInterfacePage";
 import { Game, User } from "../Types";
 
 // TODO: fetch from authentication layer (global state? singleton and useEffect?)
-const SAMPLE_USER: User = users[0];
+export const SAMPLE_USER: User = users[0];
 
 /**
  * Frankly, CSS styling is horrible here but I can fix this later.
